@@ -1,0 +1,78 @@
+# The load balancing algorithms supported by the balancer are:
+# `round-robin` ,`random` ,`p2c` ,`consistent-hash` ,`least-load` ,`bounded` ,`ip-hash`,
+# Among these,`p2c` refers to the power of 2 random choice,
+# `bounded` refers to consistent hash with bounded.
+
+schema: http # support http and https
+port: 8088 # port for balancer
+ssl_certificate:
+ssl_certificate_key:
+tcp_health_check: true
+health_check_interval: 3 # health check interval (second)
+# The maximum number of requests that the balancer can handle at the same time
+# 0 refers to no limit to the maximum number of requests
+max_allowed: 100
+location: # route matching for reverse proxy
+    - pattern: /
+      proxy_pass: # URL of the reverse proxy
+          - "http://localhost:9001"
+          - "http://localhost:9002"
+          - "http://localhost:9000"
+      balance_mode: round-robin # load balancing algorithm
+
+    - pattern: /api/v1/Fees
+      proxy_pass: # URL of the reverse proxy
+          - "http://localhost:9001"
+          - "http://localhost:9002"
+      balance_mode: consistent-hash # load balancing algorithm
+
+    - pattern: /api/v1/Policies
+      proxy_pass: # URL of the reverse proxy
+          - "http://localhost:9000"
+          - "http://localhost:9002"
+      balance_mode: round-robin # load balancing algorithm
+
+    - pattern: /api/v1/Students
+      proxy_pass: # URL of the reverse proxy
+          - "http://localhost:9000"
+          - "http://localhost:9001"
+      balance_mode: round-robin # load balancing algorithm
+
+    - pattern: /api/v1/FeeExemptions/
+      proxy_pass: # URL of the reverse proxy
+          - "http://localhost:9002"
+          - "http://localhost:9001"
+      balance_mode: round-robin # load balancing algorithm
+
+    - pattern: /api/v1/FeeExemptions/multiple
+      proxy_pass: # URL of the reverse proxy
+          - "http://localhost:9000"
+          - "http://localhost:9001"
+          - "http://localhost:9002"
+      balance_mode: round-robin # load balancing algorithm
+
+    - pattern: /api/v1/FeeExemptions/paging
+      proxy_pass: # URL of the reverse proxy
+          - "http://localhost:9000"
+          - "http://localhost:9001"
+          - "http://localhost:9002"
+      balance_mode: round-robin # load balancing algorithm
+
+    - pattern: /api/v1/FeeExemptions/MultiDelete
+      proxy_pass: # URL of the reverse proxy
+          - "http://localhost:9000"
+          - "http://localhost:9001"
+      balance_mode: round-robin # load balancing algorithm
+# email config
+#smtp_host: smtp.mailtrap.io
+#smtp_port: 2525
+#username: fca5b15809ec4c
+#password: 467c483b24279c
+#sender: GenBalancer <no-reply@genbalancer.hau.edu.vn>
+
+smtp_host: smtp.gmail.com
+smtp_port: 587
+username: username
+password: password
+sender: email nguoi gui
+recipient: email nguoi nhan

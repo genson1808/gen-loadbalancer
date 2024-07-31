@@ -1,0 +1,32 @@
+{{define "subject"}} Thông báo từ Genson load balancer ( đồ án HAU )!{{end}}
+{{define "plainBody"}}
+      From Genson load balancer (HAU),
+      Server có IP: {{.IP}} heath check thất bại.
+      Hãy theo dõi server.
+
+      Thanks,
+
+      Genson load balancer từ Đồ án HAU - TRAN BA SON_1855010144.
+  {{end}}
+
+
+  {{define "htmlBody"}}
+  <!doctype html>
+  <html>
+  <head>
+      <meta name="viewpoint" content="width=device-width"/>
+      <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8"/>
+  </head>
+
+  <body>
+      <h3><img style="width: 30px; height: 30px;" src="https://cdn1.iconfinder.com/data/icons/proxy-server-color-filled/300/20-06-09-Proxy-server-icons-svg-15-512.png"/>From Genson load balancer (HAU),</h3>
+      <p><img style="width: 20px; height: 20px;" src="https://cdn-icons-png.flaticon.com/512/6146/6146731.png" /> Server có IP: <span style="color: green;">{{.IP}}</span> heath check thất bại.</p>
+      <p>Hãy theo dõi server.</p>
+
+      <p>Thanks,</p>
+
+      <p>Genson load balancer từ Đồ án HAU - TRAN BA SON_1855010144.</p>
+  </body>
+
+  </html>
+  {{end}}
